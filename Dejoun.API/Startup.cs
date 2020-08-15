@@ -35,7 +35,10 @@ namespace Dejoun.API
             services.AddDbContext<DataContext>(
                 o => o.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
             );
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(o =>
+            {
+                o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
             services.AddCors();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
