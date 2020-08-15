@@ -22,9 +22,9 @@ namespace Dejoun.API
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var _ctx = services.GetRequiredService<DataContext>();
-                    _ctx.Database.Migrate();
-                    Seed.SeedUsers(_ctx);
+                    var dbContext = services.GetRequiredService<DataContext>();
+                    dbContext.Database.Migrate();
+                    Seed.SeedUsers(dbContext);
                 }
                 catch(Exception ex)
                 {
