@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dejoun.API.Data;
 using Dejoun.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -40,6 +41,7 @@ namespace Dejoun.API
                 o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             services.AddCors();
+            services.AddAutoMapper(typeof(DatingRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>

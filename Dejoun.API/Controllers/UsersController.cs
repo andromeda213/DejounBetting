@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dejoun.API.Data;
+using Dejoun.API.Dtos;
+using Dejoun.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,17 +19,20 @@ namespace Dejoun.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IDatingRepository _repo;
+        private readonly IMapper _mapper;
 
-        public UsersController(IDatingRepository repo)
+        public UsersController(IDatingRepository repo, IMapper mapper)
         {
-            this._repo = repo;
+            _repo = repo;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
             var users = await _repo.GetUsers();
-            return Ok(users);
+            var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+            return Ok(usersToReturn);
         }
 
 
@@ -34,7 +40,8 @@ namespace Dejoun.API.Controllers
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.GetUser(id);
-            return Ok(user);
+            var userToReturn = _mapper.Map< UserForDetailedDto>(user);
+            return Ok(userToReturn);
         }
 
     }
