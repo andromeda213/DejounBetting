@@ -19,6 +19,5 @@ export class AppComponent implements OnInit {
       this.auth.decodedToken = this.jwtHelper.decodeToken(token);
     }    
   }
-  title = 'DejounteMurray';
 
 }
