@@ -23,6 +23,9 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { JwtModule } from '@auth0/angular-jwt';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { MemberEditComponent } from './members/member-edit/member-edit.component'
 
 export function tokenGetter(){
   return localStorage.getItem("token");
@@ -38,7 +41,8 @@ export function tokenGetter(){
     ListsComponent,
     MessagesComponent,
     MemberCardComponent,
-    MemberDetailComponent
+    MemberDetailComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
@@ -54,9 +58,10 @@ export function tokenGetter(){
         allowedDomains: ['localhost:5000'],
         disallowedRoutes: ['localhost:5000/api/auth']
       }
-    })
+    }),
+    NgxGalleryModule
   ],
-  providers: [AuthService, ErrorInterceptorProvider],
+  providers: [AuthService, ErrorInterceptorProvider, MemberDetailResolver],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
