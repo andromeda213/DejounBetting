@@ -5,8 +5,8 @@
                 Your Profile
             </h1>
         </div>
-        <div class="col-sm-8 alert alert-info">
-            <p><strong>Information: </strong>You've made changes. All unsaved changes will be lost.</p>
+        <div class="col-sm-8 alert alert-info" *ngIf="editForm.dirty">
+            <strong>Information: </strong>You've made changes. All unsaved changes will be lost.
         </div>
     </div>
     <div class="row">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-success btn-block">Save Changes</button>
+                    <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
             <div class="tab-panel">
                 <tabset class="member-tabset">
                     <tab heading="Edit Profile">
-                        <form>
+                        <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
                             <h4>Description</h4>
                             <textarea name="introduction" rows="6" class="form-control" [(ngModel)]="user.introduction"></textarea>
                             <h4>Looking for</h4>
@@ -49,9 +49,9 @@
                             <textarea name="interests" rows="6" class="form-control" [(ngModel)]="user.interests"></textarea>
                             <h4>Location Details:</h4>
                             <div class="form-inline">
-                                <label for="city"></label>
+                                <label for="city">City</label>
                                 <input class="form-control" type="text" name="city" [(ngModel)]="user.city">
-                                <label for="country"></label>
+                                <label for="country">Country</label>
                                 <input class="form-control" type="text" name="country" [(ngModel)]="user.country">
                             </div>
                         </form>
